@@ -1,13 +1,20 @@
 const express = require('express');
 const passport = require('passport');
+const debug = require('debug')('server:googleOAuthRouter');
 
 const googleOAuthRouter = () => {
   const router = express.Router();
 
-  // router.use((req, res, next) => {
-  //   console.info('middleware initRouter');
-  //   next();
-  // });
+  router.use((req, res, next) => {
+    debug('middleware OAuthRouter');
+    if (req.user) {
+      debug('user logged redirect');
+      res.redirect('/user');
+    } else {
+      debug('no user logued');
+      next();
+    }
+  });
 
   router
     .route('/')
