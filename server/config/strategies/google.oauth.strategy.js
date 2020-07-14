@@ -1,7 +1,11 @@
 const passport = require('passport');
 const debug = require('debug')('server:google.oauth.strategy');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const { googleClientID, googleClientSecret } = require('../keys');
+const {
+  googleClientID,
+  googleClientSecret,
+  googleOauthCallbackUri,
+} = require('../keys');
 const modelConnection = require('../../services/modelConection.service');
 const User = modelConnection.models.User;
 
@@ -11,7 +15,7 @@ function oAuthStrategy() {
       {
         clientID: googleClientID,
         clientSecret: googleClientSecret,
-        callbackURL: '/auth/google/callback',
+        callbackURL: googleOauthCallbackUri,
       },
 
       (accessToken, refreshToken, profile, done) => {
