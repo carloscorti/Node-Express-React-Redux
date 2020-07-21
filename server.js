@@ -42,43 +42,13 @@ app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
   res.send({ api: 'hola' });
-  // res.render('index', {
-  //   title: 'New Express App',
-  //   face: ':)',
-  // });
 });
 
 const googleOAuthRouter = require('./server/routes/googleOAuthRouter')();
-
 app.use('/auth/google', googleOAuthRouter);
 
-app.get('/user', (req, res) => {
-  if (req.user) {
-    const { _id, name, providerId, email, provider, creationDate } = req.user;
-    res.send({
-      _id,
-      name,
-      providerId,
-      email,
-      provider,
-      creationDate,
-    });
-    debug(req.user);
-    debug(req.session);
-  } else {
-    res.redirect('/');
-  }
-});
-
-app.get('/logout', (req, res) => {
-  if (req.user) {
-    req.logout();
-    debug('logged out');
-    res.redirect('/');
-  } else {
-    res.redirect('/');
-  }
-});
+const apiRouter = require('./server/routes/apiRouter')();
+app.use('/api', apiRouter);
 
 app.use((req, res) => {
   res.status(404).send('Sorry cant find that!<br><a href="/">go back</a>');

@@ -9,7 +9,7 @@ const googleOAuthRouter = () => {
     debug('middleware OAuthRouter');
     if (req.user) {
       debug('user logged redirect');
-      res.redirect('/user');
+      res.redirect('/api/current_user');
     } else {
       debug('no user logued');
       next();
@@ -22,8 +22,8 @@ const googleOAuthRouter = () => {
 
   router.route('/callback').get(
     passport.authenticate('google', {
-      successRedirect: '/user',
-      failureRedirect: '/login',
+      successRedirect: '/api/current_user',
+      failureRedirect: '/auth/google',
     })
   );
 

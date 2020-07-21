@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <nav>
       <div className="nav-wrapper">
-        <a href="#" className="left brand-logo">
+        <a href="/" className="left brand-logo">
           Emaly
         </a>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
