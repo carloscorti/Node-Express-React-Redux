@@ -37,11 +37,9 @@ require('./server/config/passport.js')(app);
 
 app.use(express.static('public'));
 
-app.set('views', path.join('./', 'views'));
-app.set('view engine', 'ejs');
-
 app.get('/', (req, res) => {
   res.send({ api: 'hola' });
+  debug(req.user);
 });
 
 const googleOAuthRouter = require('./server/routes/googleOAuthRouter')();

@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 import Header from './Header';
+import Landing from './Landing';
 
-// const Header = () => <h2>Header</h2>;
 const DashBoard = () => <h2>DashBoard</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;
-const Landing = () => <h2>Landing</h2>;
 
-const App = () => {
+const App = (props) => {
+  // const [stateUser, setStateUser] = useState([]);
+
+  useEffect(() => {
+    props.fetchUser();
+
+    return () => {};
+  }, []);
+
   return (
     <div className="container">
       <BrowserRouter>
         <div>
           <Header />
-          <Route path="/" component={Landing} exact />
+          <Route path="/" render={()=> props.auth ? (<Redirect to='/surveys'/>) : <Landing/>} exact />
           <Route path="/surveys" component={DashBoard} exact />
           <Route path="/surveys/new" component={SurveyNew} />
         </div>
@@ -23,4 +33,8 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStatetoProps = ({auth}) =>  {return {auth}};
+
+export default connect(mapStatetoProps, actions)(App);
+
+// export default connect(null, actions)(App);

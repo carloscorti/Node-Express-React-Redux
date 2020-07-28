@@ -9,8 +9,8 @@ const apiRouter = () => {
       debug('middleware apiRouter');
       next();
     } else {
-      debug('no user, redirect');
-      res.redirect('/');
+      debug('no user');
+      res.send('');
     }
   });
 
@@ -22,8 +22,8 @@ const apiRouter = () => {
 
   router.get('/logout', (req, res) => {
     req.logout();
-    res.send({ bye: 'bye' });
     debug('logged out');
+    res.redirect('/');
   });
 
   return router;

@@ -1,7 +1,11 @@
 // import React, { useState, useEffect } from 'react';
 import React from 'react';
 
-const Header = () => {
+import { connect } from 'react-redux';
+
+import { Link } from 'react-router-dom';
+
+const Header = (props) => {
   // const [stateVariable, setstateVariable] = useState([]);
 
   // useEffect(() => {
@@ -9,20 +13,46 @@ const Header = () => {
   //   return () => {};
   // }, []);
 
+  const renderLogContent = (auth) => {
+    switch (auth) {
+      case null:
+        return;
+      case false:
+        return (
+          <li>
+            <a href="/auth/google">Login With Google</a>
+          </li>
+        );
+      default:
+        return (
+          <>
+            <li>
+              <Link to='/surveys'>{auth.name}</Link>
+            </li>
+            <li>
+              <a href='/api/logout'>Logout</a>
+            </li>
+          </>
+        );
+    }
+  }
+
+
+  console.log(props.auth)
   return (
     <nav>
       <div className="nav-wrapper">
-        <a href="/" className="left brand-logo">
+        <Link to={props.auth ? "/surveys" : "/"} className="left brand-logo">
           Emaly
-        </a>
+        </Link>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
-          <li>
-            <a href="#">Login With Google</a>
-          </li>
+          {renderLogContent(props.auth)}
         </ul>
       </div>
     </nav>
   );
 };
 
-export default Header;
+const mapStatetoProps = ({auth}) =>  {return {auth}};
+
+export default connect(mapStatetoProps)(Header);

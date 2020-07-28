@@ -22,7 +22,7 @@ const googleOAuthRouter = () => {
 
   router.route('/callback').get(
     passport.authenticate('google', {
-      successRedirect: '/api/current_user',
+      successRedirect: '/',
       failureRedirect: '/auth/google',
     })
   );
