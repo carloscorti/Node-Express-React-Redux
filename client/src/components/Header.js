@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
+import StripePayments from "./StripePayments";
+
 const Header = (props) => {
   // const [stateVariable, setstateVariable] = useState([]);
 
@@ -30,6 +32,12 @@ const Header = (props) => {
               <Link to='/surveys'>{auth.name}</Link>
             </li>
             <li>
+              <span>Credits:</span>
+            </li>
+            <li>
+              <StripePayments/>
+            </li>
+            <li>
               <a href='/api/logout'>Logout</a>
             </li>
           </>
@@ -38,7 +46,7 @@ const Header = (props) => {
   }
 
 
-  console.log(props.auth)
+  // console.log(props.auth)
   return (
     <nav>
       <div className="nav-wrapper">
