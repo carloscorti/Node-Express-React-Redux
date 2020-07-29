@@ -5,4 +5,6 @@ module.exports = {
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
   googleOauthCallbackUri:
     'https://emalybethere.herokuapp.com/auth/google/callback',
+  stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+  stripeSecretKey: process.env.STRIPE_SECRET_KEY,
 };
