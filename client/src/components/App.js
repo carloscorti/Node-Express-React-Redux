@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -11,7 +11,6 @@ const DashBoard = () => <h2>DashBoard</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;
 
 const App = (props) => {
-  // const [stateUser, setStateUser] = useState([]);
 
   useEffect(() => {
     props.fetchUser();
@@ -24,7 +23,13 @@ const App = (props) => {
       <BrowserRouter>
         <div>
           <Header />
-          <Route path="/" render={()=> props.auth ? (<Redirect to='/surveys'/>) : <Landing/>} exact />
+          <Route
+            path="/"
+            render={() =>
+              props.auth ? <Redirect to="/surveys" /> : <Landing />
+            }
+            exact
+          />
           <Route path="/surveys" component={DashBoard} exact />
           <Route path="/surveys/new" component={SurveyNew} />
         </div>
@@ -33,8 +38,8 @@ const App = (props) => {
   );
 };
 
-const mapStatetoProps = ({auth}) =>  {return {auth}};
+const mapStatetoProps = ({ auth }) => {
+  return { auth };
+};
 
 export default connect(mapStatetoProps, actions)(App);
-
-// export default connect(null, actions)(App);

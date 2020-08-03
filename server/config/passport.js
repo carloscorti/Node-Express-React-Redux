@@ -13,13 +13,13 @@ function passportConfig(app) {
     done(null, user.id);
   });
 
-  passport.deserializeUser((userMongoId, done) => {
-    User.findById({ _id: userMongoId }, (err, user) => {
-      if (err) {
-        return done(err, { message: 'Ups there was an error' });
-      }
+  passport.deserializeUser(async (userMongoId, done) => {
+    try {
+      const user = await User.findById({ _id: userMongoId });
       done(null, user);
-    });
+    } catch (err) {
+      return done(err, { message: 'Ups there was an error' });
+    }
   });
 }
 
