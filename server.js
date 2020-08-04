@@ -35,10 +35,12 @@ app.use(
 
 require('./server/config/passport.js')(app);
 
-app.get('/', (req, res) => {
-  res.send({ api: 'hola' });
-  debug(req.user);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.get('/', (req, res) => {
+    res.send({ api: 'hola' });
+    debug(req.user);
+  });
+}
 
 const googleOAuthRouter = require('./server/routes/googleOAuthRouter')();
 app.use('/auth/google', googleOAuthRouter);
