@@ -35,8 +35,6 @@ app.use(
 
 require('./server/config/passport.js')(app);
 
-app.use(express.static('public'));
-
 app.get('/', (req, res) => {
   res.send({ api: 'hola' });
   debug(req.user);
@@ -47,6 +45,15 @@ app.use('/auth/google', googleOAuthRouter);
 
 const apiRouter = require('./server/routes/apiRouter')();
 app.use('/api', apiRouter);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 app.use((req, res) => {
   res.status(404).send('Sorry cant find that!<br><a href="/">go back</a>');
