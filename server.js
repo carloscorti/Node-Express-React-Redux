@@ -1,7 +1,7 @@
 const express = require('express');
 const config = require('./server/config/config.host');
 const debug = require('debug')('server');
-const path = require('path');
+// const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -53,7 +53,7 @@ if (process.env.NODE_ENV === 'production') {
 
   const path = require('path');
   app.get('/*', (req, res) => {
-    res.sendFile(path(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
   });
 }
 

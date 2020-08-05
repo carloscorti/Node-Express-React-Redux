@@ -30,8 +30,18 @@ const App = (props) => {
             }
             exact
           />
-          <Route path="/surveys" component={DashBoard} exact />
-          <Route path="/surveys/new" component={SurveyNew} />
+          <Route 
+            path="/surveys"
+            render={() =>
+              props.auth ? <DashBoard /> : <Landing /> 
+            }
+            exact />
+          <Route 
+            path="/surveys/new"
+            render={() =>
+              props.auth ? <SurveyNew /> : <Landing /> 
+            }
+          />
         </div>
       </BrowserRouter>
     </div>
