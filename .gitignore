@@ -5,4 +5,4 @@ package-lock.json
 
 dev.js
 
-.env*
+# .env*
