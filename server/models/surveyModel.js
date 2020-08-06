@@ -10,7 +10,9 @@ const surveyModel = new Schema({
   ricipients: { type: [recipientModel], default: [] },
   yes: { type: Number, default: 0 },
   no: { type: Number, default: 0 },
-  creationDate: { type: Date, default: Date.now },
+  _user: { type: Schema.Types.ObjectId, ref: 'User' },
+  dateSent: { type: Date, default: Date.now },
+  lastResponded: { type: Date },
 });
 
 module.exports = { name: 'Survey', schema: surveyModel };
