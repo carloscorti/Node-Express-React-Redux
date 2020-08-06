@@ -2,19 +2,12 @@ const express = require('express');
 const debug = require('debug')('server:apiRouter');
 
 const stripeController = require('../controllers/stripeController');
+const checkUserMiddleware = require('../middlewares/checkUserMiddleware');
 
 const apiRouter = () => {
   const router = express.Router();
 
-  router.use((req, res, next) => {
-    if (req.user) {
-      debug('middleware apiRouter');
-      next();
-    } else {
-      debug('no user');
-      return res.send('');
-    }
-  });
+  router.use(checkUserMiddleware);
 
   router.get('/current_user', (req, res) => {
     res.send(req.user);
