@@ -9,8 +9,10 @@ const modelFiles = fs.readdirSync(path.join(__dirname, '..', 'models'));
 
 modelFiles.forEach((model) => {
   const { name, schema } = require(`../models/${model}`);
-  modelConnection.model(name, schema);
-  debug(`setted ${name} schema`);
+  if (name) {
+    modelConnection.model(name, schema);
+    debug(`setted ${name} schema`);
+  }
 });
 
 // let modelConnection;
