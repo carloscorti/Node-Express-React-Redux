@@ -3,7 +3,7 @@ const modelConnection = require('../services/modelConection.service');
 const Survey = modelConnection.models.Survey;
 
 const createSurveyController = async (req, res) => {
-  if (req.user.credits > 1 && req.body) {
+  if (req.body) {
     const { title, body, subject, recipientString } = req.body;
 
     const recipients = recipientString
@@ -21,6 +21,7 @@ const createSurveyController = async (req, res) => {
     const mongoNewSurvey = await newSurvey.save();
     res.send(mongoNewSurvey);
   }
+  res.send('no body');
 };
 
 module.exports = createSurveyController;
