@@ -48,6 +48,9 @@ app.use('/auth/google', googleOAuthRouter);
 const apiRouter = require('./server/routes/apiRouter')();
 app.use('/api', apiRouter);
 
+const apiSurveyRouter = require('./server/routes/apiSurveyRouter')();
+app.use('/api/surveys', apiSurveyRouter);
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 

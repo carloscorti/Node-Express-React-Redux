@@ -7,7 +7,7 @@ const surveyModel = new Schema({
   title: { type: String, default: '' },
   body: { type: String, default: '' },
   subject: { type: String, default: '' },
-  ricipients: { type: [recipientModel], default: [] },
+  recipients: { type: [recipientModel], default: [] },
   yes: { type: Number, default: 0 },
   no: { type: Number, default: 0 },
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
