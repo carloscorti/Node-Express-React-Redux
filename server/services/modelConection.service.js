@@ -5,10 +5,12 @@ const path = require('path');
 
 const modelConnection = require('./mongo.service')(mongoConnectionString);
 
-const modelFiles = fs.readdirSync(path.join(__dirname, '..', 'models'));
+const modelFiles = fs.readdirSync(
+  path.join(__dirname, '..', 'models', 'dbModels')
+);
 
 modelFiles.forEach((model) => {
-  const { name, schema } = require(`../models/${model}`);
+  const { name, schema } = require(`../models/dbModels/${model}`);
   if (name) {
     modelConnection.model(name, schema);
     debug(`setted ${name} schema`);
