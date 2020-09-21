@@ -11,13 +11,13 @@ const apiRouter = () => {
 
   router.get('/current_user', (req, res) => {
     res.send(req.user);
-    debug(req.user);
-    debug(req.session);
+    // debug(req.user);
+    // debug(req.session);
   });
 
   router.get('/logout', (req, res) => {
     req.logout();
-    debug('logged out');
+    // debug('logged out');
     res.redirect('/');
   });
 

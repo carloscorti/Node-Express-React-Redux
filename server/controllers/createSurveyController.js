@@ -2,11 +2,15 @@ const modelConnection = require('../services/modelConection.service');
 
 const Survey = modelConnection.models.Survey;
 
+const Mailer = require('../services/Mailer');
+
+const surveyTemplate = require('../services/emailTemplate/surveyTemplate');
+
 const createSurveyController = async (req, res) => {
   if (req.body) {
-    const { title, body, subject, recipientString } = req.body;
+    const { title, body, subject, recipients } = req.body;
 
-    const recipients = recipientString
+    const recipientsList = recipients
       .split(',')
       .map((recipient) => ({ email: recipient.trim() }));
 
@@ -14,12 +18,16 @@ const createSurveyController = async (req, res) => {
       title,
       body,
       subject,
-      recipients,
+      recipients: recipientsList,
       _user: req.user.id,
     });
 
-    const mongoNewSurvey = await newSurvey.save();
-    res.send(mongoNewSurvey);
+    const mailer = new Mailer(newSurvey, surveyTemplate(newSurvey));
+
+    await mailer.send();
+
+    // const mongoNewSurvey = await newSurvey.save();
+    // res.send(mongoNewSurvey);
   }
   res.send('no body');
 };
