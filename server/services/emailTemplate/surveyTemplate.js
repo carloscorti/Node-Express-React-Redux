@@ -1,3 +1,5 @@
+const key = require('../../config/keys');
+
 const surveyTemplate = ({ body }) => {
   return `
   <html>
@@ -7,10 +9,10 @@ const surveyTemplate = ({ body }) => {
         <p>Please answer the following question:</p>
         <p>${body}</p>
         <div>
-          <a href="http://localhost:3000">Yes</a>
+          <a href="${key.redirectDomain}/api/surveys/thanks">Yes</a>
         </div>
         <div>
-          <a href="http://localhost:3000">No</a>
+          <a href="${key.redirectDomain}/api/surveys/thanks">No</a>
         </div>
       </div>
     </body>

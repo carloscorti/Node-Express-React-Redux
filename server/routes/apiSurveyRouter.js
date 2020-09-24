@@ -9,7 +9,7 @@ const apiSurveyRouter = () => {
 
   router.use(checkUserMiddleware);
 
-  router.route('/').get((req, res) => res.send('Hola apiSurveyRouter'));
+  router.route('/thanks').get((req, res) => res.send('Thanks for voting¡¡¡¡'));
 
   router.route('/').post(checkCreditsMiddleware, createSurveyController);
 
