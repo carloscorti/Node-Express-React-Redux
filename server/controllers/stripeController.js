@@ -19,7 +19,7 @@ const stripeController = async (req, res) => {
   try {
     req.user.credits += 5;
     const userAddCredit = await req.user.save();
-    res.send(userAddCredit);
+    return res.send(userAddCredit);
   } catch (mongoErr) {
     debug(mongoErr);
     return res.status(404).send({ error: 'mongo error' });

@@ -24,12 +24,21 @@ const createSurveyController = async (req, res) => {
 
     const mailer = new Mailer(newSurvey, surveyTemplate(newSurvey));
 
-    await mailer.send();
+    try {
+      await mailer.send();
 
-    // const mongoNewSurvey = await newSurvey.save();
-    // res.send(mongoNewSurvey);
+      await newSurvey.save();
+
+      req.user.credits -= 1;
+
+      const user = await req.user.save();
+
+      return res.send(user);
+    } catch (err) {
+      res.status(422).send(err);
+    }
   }
-  res.send('no body');
+  return res.send('no body');
 };
 
 module.exports = createSurveyController;
